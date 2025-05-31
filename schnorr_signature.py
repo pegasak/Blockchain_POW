@@ -23,9 +23,9 @@ def verify_signature(message: bytes, e, s, y, a, p, q) -> bool:
     # y^{-e} mod p = inverse(pow(y, e, p), p)
     y_e = pow(y, e, p)
     try:
-        y_inv = pow(y_e, -1, p)  # безопасный способ найти обратный
+        y_inv = pow(y_e, -1, p)
     except ValueError:
-        return False  # если нет обратного, подпись точно неверна
+        return False
 
     r = (pow(a, s, p) * y_inv) % p
 

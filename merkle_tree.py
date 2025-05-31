@@ -21,14 +21,13 @@ def build_merkle_root(tx_dir="transactions", sig_dir="signed") -> bytes:
         leaf_hash = bytes.fromhex(hexdigest(256, leaf_input))
         leaf_hashes.append(leaf_hash)
 
-    # Строим дерево
     while len(leaf_hashes) > 1:
         if len(leaf_hashes) % 2 != 0:
-            leaf_hashes.append(leaf_hashes[-1])  # дублируем последний
+            leaf_hashes.append(leaf_hashes[-1])
         new_level = []
         for i in range(0, len(leaf_hashes), 2):
             combined = merkle_hash(leaf_hashes[i], leaf_hashes[i + 1])
             new_level.append(combined)
         leaf_hashes = new_level
 
-    return leaf_hashes[0]  # корневой хэш
+    return leaf_hashes[0]
